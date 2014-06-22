@@ -45,7 +45,9 @@ item,err := c.Item(uuid)
 ```go
 c := qiita.NewClient()
 err := c.Login("URLName","Password")
+```
 # or
+```go
 c := qiita.NewClientWithToken("Token")
 ```
 
@@ -56,8 +58,8 @@ items,err := c.MyItems(params)
 ```
 
 ### Post/Update/Delete an item
-```go
 # post
+```go
 params := map[string]interface{}{
 			"title": "Hello",
 			"tags": []map[string]interface{}{{
@@ -68,13 +70,15 @@ params := map[string]interface{}{
 			"private": false,
 }
 item,err := c.PostItem(param)
-
+```
 # update
+```go
 params := map[string]interface{}{
 			"title": "modified",
 }
 item,err := c.UpdateItem("uuid",param)
-
+```
 # delete
+```go
 err := c.DeleteItem("uuid")
 ```
