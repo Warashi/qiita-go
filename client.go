@@ -32,6 +32,12 @@ func NewClient() *Client {
 	return &Client{}
 }
 
+func NewClientWithToken(Token string) *Client {
+	return &Client{
+		Token: Token,
+	}
+}
+
 func checkError(res []byte) error {
 	var e Error
 	err := json.Unmarshal(res, &e)

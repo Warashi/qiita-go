@@ -124,6 +124,10 @@ func (c *Client) Items(params map[string]interface{}) (ret []Item, err error) {
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
+		if len.(int) == 0 {
+			ret = make([]Item, 20)
+			break
+		}
 		ret = make([]Item, len.(int))
 	default:
 		ret = make([]Item, 20)
@@ -150,6 +154,10 @@ func (c *Client) SearchItems(query string, params map[string]interface{}) (ret [
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
+		if len.(int) == 0 {
+			ret = make([]Item, 20)
+			break
+		}
 		ret = make([]Item, len.(int))
 	default:
 		ret = make([]Item, 20)

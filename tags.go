@@ -17,6 +17,10 @@ func (c *Client) TagItems(URLName string, params map[string]interface{}) (ret []
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
+		if len.(int) == 0 {
+			ret = make([]Item, 20)
+			break
+		}
 		ret = make([]Item, len.(int))
 	default:
 		ret = make([]Item, 20)
@@ -42,6 +46,10 @@ func (c *Client) Tags(params map[string]interface{}) (ret []Tag, err error) {
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
+		if len.(int) == 0 {
+			ret = make([]Tag, 20)
+			break
+		}
 		ret = make([]Tag, len.(int))
 	default:
 		ret = make([]Tag, 20)

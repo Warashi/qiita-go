@@ -30,17 +30,44 @@ func (c *Client) UserItems(URLName string, params map[string]interface{}) (ret [
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
+		if len.(int) == 0 {
+			ret = make([]Item, 20)
+			break
+		}
 		ret = make([]Item, len.(int))
 	default:
 		ret = make([]Item, 20)
 	}
-	var res []byte
-	if URLName == "" {
-		res, err = c.get("/items", params)
-	} else {
-		res, err = c.get("/users/"+URLName+"/items", params)
-
+	res, err := c.get("/users/"+URLName+"/items", params)
+	if err != nil {
+		return
 	}
+
+	err = checkError(res)
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(res, ret)
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *Client) MyItems(URLName string, params map[string]interface{}) (ret []Item, err error) {
+	len := params["per_page"]
+	switch len.(type) {
+	case int:
+		if len.(int) == 0 {
+			ret = make([]Item, 20)
+			break
+		}
+		ret = make([]Item, len.(int))
+	default:
+		ret = make([]Item, 20)
+	}
+	res, err := c.get("/items", params)
 	if err != nil {
 		return
 	}
@@ -61,6 +88,10 @@ func (c *Client) UserFollowingTags(URLName string, params map[string]interface{}
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
+		if len.(int) == 0 {
+			ret = make([]Tag, 20)
+			break
+		}
 		ret = make([]Tag, len.(int))
 	default:
 		ret = make([]Tag, 20)
@@ -87,6 +118,10 @@ func (c *Client) UserFollowingUsers(URLName string, params map[string]interface{
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
+		if len.(int) == 0 {
+			ret = make([]User, 20)
+			break
+		}
 		ret = make([]User, len.(int))
 	default:
 		ret = make([]User, 20)
@@ -113,17 +148,44 @@ func (c *Client) UserStocks(URLName string, params map[string]interface{}) (ret 
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
+		if len.(int) == 0 {
+			ret = make([]Item, 20)
+			break
+		}
 		ret = make([]Item, len.(int))
 	default:
 		ret = make([]Item, 20)
 	}
-	var res []byte
-	if URLName == "" {
-		res, err = c.get("/stocks", params)
-	} else {
-		res, err = c.get("/users/"+URLName+"/stocks", params)
-
+	res, err := c.get("/users/"+URLName+"/stocks", params)
+	if err != nil {
+		return
 	}
+
+	err = checkError(res)
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(res, ret)
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *Client) MyStocks(URLName string, params map[string]interface{}) (ret []Item, err error) {
+	len := params["per_page"]
+	switch len.(type) {
+	case int:
+		if len.(int) == 0 {
+			ret = make([]Item, 20)
+			break
+		}
+		ret = make([]Item, len.(int))
+	default:
+		ret = make([]Item, 20)
+	}
+	res, err := c.get("/stocks", params)
 	if err != nil {
 		return
 	}
@@ -142,12 +204,26 @@ func (c *Client) UserStocks(URLName string, params map[string]interface{}) (ret 
 
 func (c *Client) User(URLName string, params map[string]interface{}) (ret *User, err error) {
 	ret = new(User)
-	var res []byte
-	if URLName == "" {
-		res, err = c.get("/user", params)
-	} else {
-		res, err = c.get("/users/"+URLName, params)
+	res, err := c.get("/users/"+URLName, params)
+	if err != nil {
+		return
 	}
+
+	err = checkError(res)
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(res, ret)
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (c *Client) Me(URLName string, params map[string]interface{}) (ret *User, err error) {
+	ret = new(User)
+	res, err := c.get("/user", params)
 	if err != nil {
 		return
 	}
