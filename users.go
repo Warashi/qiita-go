@@ -55,7 +55,7 @@ func (c *Client) UserItems(URLName string, params map[string]interface{}) (ret [
 	return
 }
 
-func (c *Client) MyItems(URLName string, params map[string]interface{}) (ret []Item, err error) {
+func (c *Client) MyItems(params map[string]interface{}) (ret []Item, err error) {
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
@@ -173,7 +173,7 @@ func (c *Client) UserStocks(URLName string, params map[string]interface{}) (ret 
 	return
 }
 
-func (c *Client) MyStocks(URLName string, params map[string]interface{}) (ret []Item, err error) {
+func (c *Client) MyStocks(params map[string]interface{}) (ret []Item, err error) {
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
@@ -221,7 +221,7 @@ func (c *Client) User(URLName string, params map[string]interface{}) (ret *User,
 	return
 }
 
-func (c *Client) Me(URLName string, params map[string]interface{}) (ret *User, err error) {
+func (c *Client) Me(params map[string]interface{}) (ret *User, err error) {
 	ret = new(User)
 	res, err := c.get("/user", params)
 	if err != nil {
