@@ -8,18 +8,18 @@ type Item struct {
 	ID        int64  `json:"id"`
 	UpdatedAt string `json:"updated_at"`
 	Tags      []struct {
-		Name     string        `json:"name"`
-		URLName  string        `json:"url_name"`
-		IconURL  string        `json:"icon_url"`
-		Versions []interface{} `json:"versions"`
+		Name     string   `json:"name"`
+		URLName  string   `json:"url_name"`
+		IconURL  string   `json:"icon_url"`
+		Versions []string `json:"versions"`
 	} `json:"tags"`
-	StockUsers   []interface{} `json:"stock_users"`
-	CommentCount int64         `json:"comment_count"`
-	URL          string        `json:"url"`
-	GistURL      interface{}   `json:"gist_url"`
-	Tweet        bool          `json:"tweet"`
-	Title        string        `json:"title"`
-	StockCount   int64         `json:"stock_count"`
+	StockUsers   []string `json:"stock_users"`
+	CommentCount int64    `json:"comment_count"`
+	URL          string   `json:"url"`
+	GistURL      string   `json:"gist_url"`
+	Tweet        bool     `json:"tweet"`
+	Title        string   `json:"title"`
+	StockCount   int64    `json:"stock_count"`
 	Comments     []struct {
 		ID   int64  `json:"id"`
 		Uuid string `json:"uuid"`
@@ -82,23 +82,14 @@ func (c *Client) UpdateItem(uuid string, params map[string]interface{}) (ret *It
 	return
 }
 
-func (c *Client) DeleteItem(uuid string) (ret *Error, err error) {
-	ret = new(Error)
+func (c *Client) DeleteItem(uuid string) error {
 	res, err := c.delete("/items/"+uuid, map[string]interface{}{})
 	if err != nil {
-		return
+		return err
 	}
 
 	err = checkError(res)
-	if err != nil {
-		return
-	}
-
-	err = json.Unmarshal(res, ret)
-	if err != nil {
-		return
-	}
-	return
+	return err
 }
 
 func (c *Client) Item(uuid string) (ret *Item, err error) {
@@ -179,40 +170,22 @@ func (c *Client) SearchItems(query string, params map[string]interface{}) (ret [
 	return
 }
 
-func (c *Client) StockItem(uuid string) (ret *Error, err error) {
-	ret = new(Error)
+func (c *Client) StockItem(uuid string) error {
 	res, err := c.put("/items/"+uuid+"/stock", map[string]interface{}{})
 	if err != nil {
-		return
+		return err
 	}
 
 	err = checkError(res)
-	if err != nil {
-		return
-	}
-
-	err = json.Unmarshal(res, ret)
-	if err != nil {
-		return
-	}
-	return
+	return err
 }
 
-func (c *Client) UnStockItem(uuid string) (ret *Error, err error) {
-	ret = new(Error)
+func (c *Client) UnStockItem(uuid string) error {
 	res, err := c.delete("/items/"+uuid+"/stock", map[string]interface{}{})
 	if err != nil {
-		return
+		return err
 	}
 
 	err = checkError(res)
-	if err != nil {
-		return
-	}
-
-	err = json.Unmarshal(res, ret)
-	if err != nil {
-		return
-	}
-	return
+	return err
 }
