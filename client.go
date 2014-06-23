@@ -9,10 +9,6 @@ import (
 	"strings"
 )
 
-type Error struct {
-	Error string
-}
-
 type Client struct {
 	URLName string `json:"url_name"`
 	Token   string
