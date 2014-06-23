@@ -26,7 +26,7 @@ type User struct {
 	Followers       int64  `json:"followers"`
 }
 
-func (c *Client) UserItems(URLName string, params map[string]interface{}) (ret []Item, err error) {
+func (c *Client) UserItems(UserName string, params map[string]interface{}) (ret []Item, err error) {
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
@@ -38,7 +38,7 @@ func (c *Client) UserItems(URLName string, params map[string]interface{}) (ret [
 	default:
 		ret = make([]Item, 20)
 	}
-	res, err := c.get("/users/"+URLName+"/items", params)
+	res, err := c.get("/users/"+UserName+"/items", params)
 	if err != nil {
 		return
 	}
@@ -48,7 +48,7 @@ func (c *Client) UserItems(URLName string, params map[string]interface{}) (ret [
 		return
 	}
 
-	err = json.Unmarshal(res, ret)
+	err = json.Unmarshal(res, &ret)
 	if err != nil {
 		return
 	}
@@ -77,14 +77,14 @@ func (c *Client) MyItems(params map[string]interface{}) (ret []Item, err error) 
 		return
 	}
 
-	err = json.Unmarshal(res, ret)
+	err = json.Unmarshal(res, &ret)
 	if err != nil {
 		return
 	}
 	return
 }
 
-func (c *Client) UserFollowingTags(URLName string, params map[string]interface{}) (ret []Tag, err error) {
+func (c *Client) UserFollowingTags(UserName string, params map[string]interface{}) (ret []Tag, err error) {
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
@@ -96,7 +96,7 @@ func (c *Client) UserFollowingTags(URLName string, params map[string]interface{}
 	default:
 		ret = make([]Tag, 20)
 	}
-	res, err := c.get("/users/"+URLName+"/following_tags", params)
+	res, err := c.get("/users/"+UserName+"/following_tags", params)
 	if err != nil {
 		return
 	}
@@ -106,7 +106,7 @@ func (c *Client) UserFollowingTags(URLName string, params map[string]interface{}
 		return
 	}
 
-	err = json.Unmarshal(res, ret)
+	err = json.Unmarshal(res, &ret)
 	if err != nil {
 		return
 	}
@@ -114,7 +114,7 @@ func (c *Client) UserFollowingTags(URLName string, params map[string]interface{}
 
 }
 
-func (c *Client) UserFollowingUsers(URLName string, params map[string]interface{}) (ret []User, err error) {
+func (c *Client) UserFollowingUsers(UserName string, params map[string]interface{}) (ret []User, err error) {
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
@@ -126,7 +126,7 @@ func (c *Client) UserFollowingUsers(URLName string, params map[string]interface{
 	default:
 		ret = make([]User, 20)
 	}
-	res, err := c.get("/users/"+URLName+"/following_users", params)
+	res, err := c.get("/users/"+UserName+"/following_users", params)
 	if err != nil {
 		return
 	}
@@ -136,7 +136,7 @@ func (c *Client) UserFollowingUsers(URLName string, params map[string]interface{
 		return
 	}
 
-	err = json.Unmarshal(res, ret)
+	err = json.Unmarshal(res, &ret)
 	if err != nil {
 		return
 	}
@@ -144,7 +144,7 @@ func (c *Client) UserFollowingUsers(URLName string, params map[string]interface{
 
 }
 
-func (c *Client) UserStocks(URLName string, params map[string]interface{}) (ret []Item, err error) {
+func (c *Client) UserStocks(UserName string, params map[string]interface{}) (ret []Item, err error) {
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
@@ -156,7 +156,7 @@ func (c *Client) UserStocks(URLName string, params map[string]interface{}) (ret 
 	default:
 		ret = make([]Item, 20)
 	}
-	res, err := c.get("/users/"+URLName+"/stocks", params)
+	res, err := c.get("/users/"+UserName+"/stocks", params)
 	if err != nil {
 		return
 	}
@@ -166,7 +166,7 @@ func (c *Client) UserStocks(URLName string, params map[string]interface{}) (ret 
 		return
 	}
 
-	err = json.Unmarshal(res, ret)
+	err = json.Unmarshal(res, &ret)
 	if err != nil {
 		return
 	}
@@ -195,16 +195,16 @@ func (c *Client) MyStocks(params map[string]interface{}) (ret []Item, err error)
 		return
 	}
 
-	err = json.Unmarshal(res, ret)
+	err = json.Unmarshal(res, &ret)
 	if err != nil {
 		return
 	}
 	return
 }
 
-func (c *Client) User(URLName string, params map[string]interface{}) (ret *User, err error) {
+func (c *Client) User(UserName string, params map[string]interface{}) (ret *User, err error) {
 	ret = new(User)
-	res, err := c.get("/users/"+URLName, params)
+	res, err := c.get("/users/"+UserName, params)
 	if err != nil {
 		return
 	}
