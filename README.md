@@ -82,3 +82,6 @@ delete
 ```go
 err := c.DeleteItem("uuid")
 ```
+
+# Running Test
+if you want to run `go test`, you must fill constants in `const_test.go`.
