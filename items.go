@@ -141,7 +141,7 @@ func (c *Client) Items(params map[string]interface{}) (ret []Item, err error) {
 }
 
 func (c *Client) SearchItems(query string, params map[string]interface{}) (ret []Item, err error) {
-	params["query"] = query
+	params["q"] = query
 	len := params["per_page"]
 	switch len.(type) {
 	case int:

@@ -40,6 +40,9 @@ func NewClientWithToken(Token string) *Client {
 
 func checkError(res []byte) error {
 	var e interface{}
+	if len(res) == 0 {
+		return nil
+	}
 	err := json.Unmarshal(res, &e)
 	if err != nil {
 		return err
@@ -70,6 +73,7 @@ func (c *Client) request(method, path string, params map[string]interface{}) ([]
 			}
 		}
 		url := rootURL + basePath + path + "?" + strings.Join(parameters, "&")
+
 		req, err := http.NewRequest(method, url, nil)
 		if err != nil {
 			return nil, err
@@ -78,6 +82,9 @@ func (c *Client) request(method, path string, params map[string]interface{}) ([]
 		res, err := hc.Do(req)
 		if err != nil {
 			return nil, err
+		}
+		if res.StatusCode >= 400 {
+			return nil, errors.New(res.Status)
 		}
 		return ioutil.ReadAll(res.Body)
 
@@ -96,6 +103,9 @@ func (c *Client) request(method, path string, params map[string]interface{}) ([]
 		res, err := hc.Do(req)
 		if err != nil {
 			return nil, err
+		}
+		if res.StatusCode >= 400 {
+			return nil, errors.New(res.Status)
 		}
 		return ioutil.ReadAll(res.Body)
 
