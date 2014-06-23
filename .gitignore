@@ -22,5 +22,3 @@ _testmain.go
 *.exe
 *.test
 
-# Test Files
-*_test.go
