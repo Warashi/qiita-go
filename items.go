@@ -133,7 +133,7 @@ func (c *Client) Items(params map[string]interface{}) (ret []Item, err error) {
 		return
 	}
 
-	err = json.Unmarshal(res, ret)
+	err = json.Unmarshal(res, &ret)
 	if err != nil {
 		return
 	}
@@ -163,7 +163,7 @@ func (c *Client) SearchItems(query string, params map[string]interface{}) (ret [
 		return
 	}
 
-	err = json.Unmarshal(res, ret)
+	err = json.Unmarshal(res, &ret)
 	if err != nil {
 		return
 	}

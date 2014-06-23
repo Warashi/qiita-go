@@ -13,7 +13,7 @@ type Tag struct {
 	Following     bool   `json:"following"`
 }
 
-func (c *Client) TagItems(URLName string, params map[string]interface{}) (ret []Item, err error) {
+func (c *Client) TagItems(tag string, params map[string]interface{}) (ret []Item, err error) {
 	len := params["per_page"]
 	switch len.(type) {
 	case int:
@@ -25,7 +25,7 @@ func (c *Client) TagItems(URLName string, params map[string]interface{}) (ret []
 	default:
 		ret = make([]Item, 20)
 	}
-	res, err := c.get("/tags/"+URLName+"/items", params)
+	res, err := c.get("/tags/"+tag+"/items", params)
 	if err != nil {
 		return
 	}
@@ -35,7 +35,7 @@ func (c *Client) TagItems(URLName string, params map[string]interface{}) (ret []
 		return
 	}
 
-	err = json.Unmarshal(res, ret)
+	err = json.Unmarshal(res, &ret)
 	if err != nil {
 		return
 	}
@@ -64,7 +64,7 @@ func (c *Client) Tags(params map[string]interface{}) (ret []Tag, err error) {
 		return
 	}
 
-	err = json.Unmarshal(res, ret)
+	err = json.Unmarshal(res, &ret)
 	if err != nil {
 		return
 	}

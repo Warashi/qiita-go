@@ -39,13 +39,16 @@ func NewClientWithToken(Token string) *Client {
 }
 
 func checkError(res []byte) error {
-	var e Error
+	var e interface{}
 	err := json.Unmarshal(res, &e)
 	if err != nil {
 		return err
 	}
-	if e.Error != "" {
-		return errors.New(e.Error)
+	switch val := e.(type) {
+	case map[string]interface{}:
+		if v, ok := val["error"]; ok && v.(string) != "" {
+			return errors.New(v.(string))
+		}
 	}
 	return nil
 }
