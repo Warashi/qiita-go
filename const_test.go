@@ -1,7 +1,8 @@
 package qiita
 
 const (
-	username = ""
-	password = ""
-	token    = ""
+	username    = ""
+	password    = ""
+	token       = ""
+	uuidForTest = ""
 )

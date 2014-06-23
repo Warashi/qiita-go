@@ -39,9 +39,8 @@ func TestUpdateItem(t *testing.T) {
 		t.Fail()
 	}
 
-	uuid = "b18a6f79ba42ad132764"
 	params = map[string]interface{}{}
-	_, err = c.UpdateItem(uuid, params)
+	_, err = c.UpdateItem(uuidForTest, params)
 	if err == nil {
 		t.Fail()
 	}
@@ -113,8 +112,7 @@ func TestStockItem(t *testing.T) {
 		t.Fail()
 	}
 
-	uuid = "b18a6f79ba42ad132764"
-	err = c.StockItem(uuid)
+	err = c.StockItem(uuidForTest)
 	if err != nil {
 		t.Error(err)
 	}
@@ -130,8 +128,7 @@ func TestUnStockItem(t *testing.T) {
 		t.Fail()
 	}
 
-	uuid = "b18a6f79ba42ad132764"
-	err = c.UnStockItem(uuid)
+	err = c.UnStockItem(uuidForTest)
 	if err != nil {
 		t.Error(err)
 	}
