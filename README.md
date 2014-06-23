@@ -18,9 +18,9 @@ import "github.com/Warashi/qiita-go"
 ### Get user's items
 ```go
 c := qiita.NewClient()
-URLName := "saveji"
+UserName := "saveji"
 params := map[string]interface{}{}
-items,err := c.UserItems(URLName,params)
+items,err := c.UserItems(UserName,params)
 ```
 
 ### Get tag's items
@@ -44,7 +44,7 @@ item,err := c.Item(uuid)
 ### Login with "username & password" or "token"
 ```go
 c := qiita.NewClient()
-err := c.Login("URLName","Password")
+err := c.Login("UserName","Password")
 ```
 or
 ```go
