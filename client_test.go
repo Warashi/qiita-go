@@ -33,7 +33,7 @@ func TestRequest(t *testing.T) {
 
 func TestRateLimit(t *testing.T) {
 	c := NewClient()
-	ret, err := c.RateLimit(map[string]interface{}{})
+	ret, err := c.RateLimit()
 	if err != nil {
 		t.Error(err)
 	}

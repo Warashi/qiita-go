@@ -122,9 +122,9 @@ func (c *Client) put(path string, params map[string]interface{}) ([]byte, error)
 	return c.request("PUT", path, params)
 }
 
-func (c *Client) RateLimit(params map[string]interface{}) (ret *RateLimit, err error) {
+func (c *Client) RateLimit() (ret *RateLimit, err error) {
 	ret = new(RateLimit)
-	res, err := c.get("/rate_limit", params)
+	res, err := c.get("/rate_limit", map[string]interface{}{})
 	if err != nil {
 		return
 	}
