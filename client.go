@@ -141,8 +141,8 @@ func (c *Client) RateLimit() (ret *RateLimit, err error) {
 	return
 }
 
-func (c *Client) Login(urlName, password string) error {
-	res, err := c.post("/auth", map[string]interface{}{"url_name": urlName, "password": password})
+func (c *Client) Login(username, password string) error {
+	res, err := c.post("/auth", map[string]interface{}{"url_name": username, "password": password})
 	if err != nil {
 		return err
 	}
